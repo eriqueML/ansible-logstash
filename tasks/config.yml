@@ -1,0 +1,32 @@
+---
+- name: Ensure logstash directories exist
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ logstash_user }}"
+    group: "{{ logstash_group }}"
+    recurse: true
+  loop:
+    - "{{ logstash_home }}"
+    - "{{ logstash_config_dir }}"
+    - "{{ logstash_data_dir }}"
+    - "{{ logstash_log_dir }}"
+
+- name: Configure Logstash
+  template:
+    src: etc/logstash/logstash.yml.j2
+    dest: "{{ logstash_config_dir }}/logstash.yml"
+    owner: "{{ logstash_user }}"
+    group: "{{ logstash_group }}"
+    mode: 0660
+    backup: true
+
+- name: Prepare systemd file
+  template: 
+    src: etc/systemd/logstash.service.j2
+    dest: "{{ logstash_sysd_script }}"
+    mode: 0644
+    force: true
+  notify:
+    - Reload systemd daemon
+    - Restart logstash

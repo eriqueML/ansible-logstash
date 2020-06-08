@@ -1,0 +1,9 @@
+---
+- name: User, group tasks
+  include_tasks: user.yml
+
+- name: Install logstash
+  include_tasks: install.yml
+
+- name: Config tasks
+  include_tasks: config.yml

@@ -1,0 +1,13 @@
+---
+- name: Ensure logstash group exists
+  group:
+    name: "{{ logstash_group }}"
+    state: present
+
+- name: Ensure logstash user exists
+  user:
+    name: "{{ logstash_user }}"
+    state: present
+    home: "{{ logstash_home }}"
+    group: "{{ logstash_group }}"
+    shell: /bin/bash

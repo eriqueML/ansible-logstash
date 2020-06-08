@@ -1,0 +1,13 @@
+---
+- name: Add and enable Logstash service.
+  service:
+    name: logstash
+    state: "{{ logstash_service_state }}"
+    enabled: "{{ logstash_service_enabled }}"
+
+- name: Make sure Logstash is running before proceeding.
+  wait_for:
+    host: "{{ logstash_host }}"
+    port: "{{ logstash_http_port }}"
+    delay: 3
+    timeout: 300

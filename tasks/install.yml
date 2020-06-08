@@ -1,0 +1,16 @@
+---
+- name: Install openjdk 11
+  yum:
+    name: "java-{{ logstash_java_version }}-openjdk"
+    state: present
+
+- name: Download rpm package
+  get_url:
+    url: "{{ logstash_install_rpm_url }}"
+    dest: "{{ logstash_install_rpm_dest }}"
+    validate_certs: no
+
+- name: Install Logstash
+  yum:
+    name: "{{ logstash_install_rpm_dest }}/logstash-{{ logstash_version }}.rpm"
+    state: installed
