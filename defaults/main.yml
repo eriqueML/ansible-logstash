@@ -22,3 +22,6 @@ logstash_node_name: "logstash_test"
 # logstash_pipeline_workers: 
 logstash_host: "{{ inventory_hostname }}"
 logstash_http_port: 9600
+logstash_xpack_management_enabled: true
+logstash_elasticsearch_hosts:
+  - "{{ inventory_hostname }}:9200"

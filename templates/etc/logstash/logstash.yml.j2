@@ -256,11 +256,13 @@ path.logs: {{ logstash_log_dir }}
 #
 # X-Pack Management
 # https://www.elastic.co/guide/en/logstash/current/logstash-centralized-pipeline-management.html
-#xpack.management.enabled: false
+{% if logstash_xpack_management_enabled %}
+xpack.management.enabled: {{ logstash_xpack_management_enabled }}
+{% endif %}
 #xpack.management.pipeline.id: ["main", "apache_logs"]
 #xpack.management.elasticsearch.username: logstash_admin_user
 #xpack.management.elasticsearch.password: password
-#xpack.management.elasticsearch.hosts: ["https://es1:9200", "https://es2:9200"]
+xpack.management.elasticsearch.hosts: {{ logstash_elasticsearch_hosts | to_json }}
 # an alternative to hosts + username/password settings is to use cloud_id/cloud_auth
 #xpack.management.elasticsearch.cloud_id: management_cluster_id:xxxxxxxxxx
 #xpack.management.elasticsearch.cloud_auth: logstash_admin_user:password
